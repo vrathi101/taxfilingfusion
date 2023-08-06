@@ -25,7 +25,7 @@ setuptools.setup(
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Intended Audience :: Data Analysts',
+        'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Information Analysis',
         'License :: OSI Approved :: MIT License',
