@@ -3,8 +3,9 @@ README.md
 setup.cfg
 setup.py
 taxfilingfusion/__init__.py
-taxfilingfusion/data_collector.py
-taxfilingfusion/data_processor.py
+taxfilingfusion/ff_called_func.py
+taxfilingfusion/ff_fetch.py
+taxfilingfusion/ff_fusion.py
 taxfilingfusion.egg-info/PKG-INFO
 taxfilingfusion.egg-info/SOURCES.txt
 taxfilingfusion.egg-info/dependency_links.txt

@@ -575,12 +575,19 @@ def ff_state_incgrp_filingtype_pct(state_code: str, year: int, income_level: int
         for income_level in range(1, 7):
             df = ff_called_func.ff_state_incgrp_returntype_distribution(
                 state_code, year, income_level)
+            if isinstance(df, str):
+                return "Please enter valid parameters."
             df_all = pd.concat([df_all, df], ignore_index=True)
+        return (df_all)
     elif (income_level >= 1 and income_level < 7):
         df = ff_called_func.ff_state_incgrp_returntype_distribution(
             state_code, year, income_level)
+        if isinstance(df, str):
+            return "Please enter valid parameters."
         df_all = pd.concat([df_all, df], ignore_index=True)
-    return (df_all)
+        return (df_all)
+    else:
+        return "Please enter valid parameters."
 
 
 def ff_state_filingtype_pct(state_code: str, year: int):
@@ -769,6 +776,8 @@ def ff_state_incgrp_pct_change(state_code: str, year1: int, year2: int, income_l
             return "Please choose a valid category."
     if year1 not in [2015, 2016, 2017, 2018, 2019, 2020] or year2 not in [2015, 2016, 2017, 2018, 2019, 2020]:
         return "Please enter a valid year, between 2015-2020."
+    if year1 == year2:
+        return "Years entered are the same. Please enter different years."
     if (state_code not in list(state_codes.keys())) and state_code != 'ALL':
         return "Please enter a valid state code."
     for category in categories:
@@ -785,12 +794,19 @@ def ff_state_incgrp_pct_change(state_code: str, year1: int, year2: int, income_l
         for income_level in range(1, 7):
             df = ff_called_func.ff_each_inc_distr_pct_change(
                 state_code, year1, year2, income_level, *categories)
+            if isinstance(df, str):
+                return "Please enter valid parameters."
             df_all = pd.concat([df_all, df], ignore_index=True)
+        return df_all
     elif (income_level >= 1 and income_level < 7):
         df = ff_called_func.ff_each_inc_distr_pct_change(
             state_code, year1, year2, income_level, *categories)
+        if isinstance(df, str):
+            return "Please enter valid parameters."
         df_all = pd.concat([df_all, df], ignore_index=True)
-    return df_all
+        return df_all
+    else:
+        return df_all
 
 
 def ff_state_pct_change(state_code: str, year1: int, year2: int, *categories: str) -> pd.DataFrame:

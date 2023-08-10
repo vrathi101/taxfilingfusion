@@ -52,8 +52,7 @@ def ff_state_incgrp_returntype_distribution(state_code: str, year: int, income_l
     if 'state' in df.columns:
         df.rename(columns={'state': 'state_code'}, inplace=True)
 
-    df_federal_filing_statelevel = df[['filing_year', 'income_level', 'state_code', 'n_ret',
-                                       'nbr_individuals', 'n_ret_single', 'n_ret_head_household', 'n_ret_joint']].copy()
+    df_federal_filing_statelevel = df[['filing_year', 'income_level', 'state_code', 'n_ret', 'nbr_individuals', 'n_ret_single', 'n_ret_head_household', 'n_ret_joint']].copy()
 
     if (income_level != 0):
         df_filtered_income_federal_filing_statelevel = df_federal_filing_statelevel[(
@@ -74,7 +73,7 @@ def ff_state_incgrp_returntype_distribution(state_code: str, year: int, income_l
         df_filtered_incomestate_federal_filing_statelevel = df_filtered_income_federal_filing_statelevel_year.copy()
 
     df_final = df_filtered_incomestate_federal_filing_statelevel.groupby(
-        ['filing_year', 'state_code', 'income_level']).apply(ff_called_func.transform_group)
+        ['filing_year', 'state_code', 'income_level']).apply(transform_group)
     df_final.reset_index(drop=True, inplace=True)
     df_final['income_level_desc'] = df_final['income_level'].replace(
         income_level_mapping)
@@ -87,7 +86,7 @@ def ff_state_incgrp_returntype_distribution(state_code: str, year: int, income_l
 
     if income_level == 0:
         df_aggregated = df_filtered_incomestate_federal_filing_statelevel.groupby(
-            ['filing_year', 'state_code']).apply(ff_called_func.transform_group)
+            ['filing_year', 'state_code']).apply(transform_group)
         df_aggregated.reset_index(drop=True, inplace=True)
         df_aggregated['income_level'] = 0
         df_aggregated['income_level_desc'] = 'All'

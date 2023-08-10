@@ -1,9 +1,9 @@
 Metadata-Version: 2.1
 Name: taxfilingfusion
-Version: 0.1.0
-Summary: This package will provide the ability for users to access IRS data in a flexible and powerful way.
+Version: 1.0.0
+Summary: This package will provide the ability for users to access IRS data combined with geographic data in a powerful way.
 Home-page: https://github.com/vrathi101/taxfilingfusion.git
-Download-URL: https://github.com/vrathi101/taxfilingfusion/archive/refs/tags/v0.1.0.tar.gz
+Download-URL: https://github.com/vrathi101/taxfilingfusion/archive/refs/tags/v1.0.0.tar.gz
 Author: VEDANT RATHI
 Author-email: vedrathi10@gmail.com
 License: MIT
@@ -24,23 +24,22 @@ License-File: LICENSE.txt
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/vrathi101/taxfilingfusion/main/logo/tax_filing_fusion.png" alt="Project Logo" height="200" width="200" style="display: inline-block;">
 </h1>
-TaxFilingFusion stands as the ultimate solution for effortlessly accessing and navigating IRS tax filing data. This powerful package effortlessly transforms complexity into simplicity, empowering users to unlock fresh insights and delve deep into data analysis. Unravel the potential of tax data like never before – whether you're an expert or just starting out, TaxFilingFusion makes IRS data accessible and user-friendly for all.
+TaxFilingFusion stands as the solution for effortlessly accessing and navigating IRS tax filing data. This package transforms complexity into simplicity, empowering users to delve deep into federal tax data. TaxFilingFusion makes historical IRS data accessible and searchable by ZIP code, city, county, and state.
 
 ## Features
 
 It provides:
 
-- sophisticated functions
-- a powerful connection between tax filing data and the American geography
-- an API with a backend of BigQuery to allow user manipulation of data
+- a variety of functions to smoothly search through large volumes of data
+- a connection between tax filing data and geographical data
 
 ## Detailed Package Info
 
-This Python package provides access to individual income tax statistics for various zip codes using data obtained from the IRS. The data spans the years between 2015 and 2020, and each year's data may have a different format as some attributes may be dropped in certain years, while new attributes may be added.
+This Python package provides access to individual income tax statistics for various ZIP codes using data obtained from the IRS. The data spans the years between 2015 and 2020. Each year's data may have a different format as some attributes may be dropped in certain years, while new attributes may be added.
 
-The data is ingested into Google BigQuery, where all individual year tables are combined into a single comprehensive table. To enrich the ZIP code data and provide more detailed information, the package utilizes crosswalk files from HUD USPS, which establishes links between ZIP codes, state FIPS codes, county FIPS codes, and city FIPS codes. This enriched data allows users to obtain additional details about each ZIP code, such as county, state, region, and other associated information.
+The data is ingested into Google BigQuery, where all individual year tables are combined normalized into a comprehensive table. To enrich the ZIP code data and provide more detailed information, the package utilizes crosswalk files from HUD USPS, which establishes links between ZIP codes, state FIPS codes, county FIPS codes, and city FIPS codes. This enriched data allows users to obtain additional details about each ZIP code, such as county, state, region, and other associated information.
 
-Several views, table query functions, and single-valued functions are implemented to support various data needs for the API. These functions are designed to expose the polished data for public access. By leveraging these APIs, we have created a beautiful and easy-to-use PyPI package that allows the public to interact with and analyze the IRS individual income tax statistics for different ZIP codes, intertwined with valuable geographic information.
+Several views, table query functions, and single-valued functions are implemented to support various data needs for the API. These functions are designed to expose the cleansed data for public access. By building and leveraging these APIs, we have created an easy-to-use PyPI package that allows the public to interact with and analyze the IRS individual income tax statistics for different ZIP codes, intertwined with valuable geographic information.
 
 ## Call for Contributions
 
@@ -49,7 +48,7 @@ The TaxFilingFusion project welcomes everyone's passions, thoughts, ideas, and c
 Small improvements or fixes are greatly appreciated.
 If you have any questions, please email: vedrathi10@gmail.com
 
-Our GitHub repository may be small and much simple, but the functionality it provides is still powerful. Our goal is to continue adding new features to make this data even more accessible for users.
+Our GitHub repository may be small and simple, but the functionality it provides is still powerful. Our goal is to continue adding new features and datasets to make this data more accessible for users and include integration from various data sources.
 To help contribute to our project, you can:
 
 - review the code and create pull requests via forking the repo
@@ -68,10 +67,16 @@ To upgrade the package version (CLI), run:
 `pip install taxfilingfusion --upgrade`.
 <br>
 To use the functions provided by this package, after downloading, run:
-`from taxfilingfusion import data_processor`
+`from taxfilingfusion import ff_fusion`
 <br>
 Then a method can be accessed using the dot operator, like:
-`data_processor.{function_name(parameters...)}`
+`ff_fusion.{function_name(parameters...)}`
+<br>
+Refer to [TaxFilingFusion Functions](https://drive.google.com/file/d/1rd2jFGZKyjYnAAWVM4uDio7Oc9cfy8fR/view?usp=sharing) to get a high-level overview of the key functions available in this package. 
+
+## Special Note
+
+In cases when a ZIP code encompasses multiple counties, we implement a ZIP code data multiplier. This multiplier is utilized to evenly distribute data among these counties, ensuring proportional representation. For example, if a ZIP code is associated with three counties and there was a total of 999 filings, each county's dataset would display 333 filings for that specific zip code (a multiplier of 0.33). Through the application of this multiplier approach, we achieve an equitable allocation of data across the different counties. This multiplier concept is similarly employed in city statistics.
 
 ## Sources
 
