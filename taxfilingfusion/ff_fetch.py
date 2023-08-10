@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import requests
 
 dict_income_group = None
@@ -12,7 +11,7 @@ def inc_dict():
     global dict_income_group
     if dict_income_group is None:
         url = f"https://us-central1-taxfiling-aggregation.cloudfunctions.net/fed-tax-data-get?p_01=inc"
-        response = requests.get(url)
+        response = requests.get(url, timeout=60)
         responsedata = response.json()
         data = pd.DataFrame(responsedata)
         df = pd.DataFrame(data)
@@ -31,7 +30,7 @@ def ff_dataget():
         df_fed_state_filings = pd.DataFrame()
         for year in range(2015, 2021):
             url = f"https://us-central1-taxfiling-aggregation.cloudfunctions.net/fed-tax-data-get?p_01={year}"
-            response = requests.get(url)
+            response = requests.get(url, timeout=60)
             data = response.json()
             df = pd.DataFrame(data)
             df_fed_state_filings = pd.concat(
@@ -45,7 +44,7 @@ def tax_dict():
     global df_tax_attribute
     if df_tax_attribute is None:
         url = f"https://us-central1-taxfiling-aggregation.cloudfunctions.net/fed-tax-data-get?p_01=dict"
-        response = requests.get(url)
+        response = requests.get(url, timeout=60)
         responsedata = response.json()
         data = pd.DataFrame(responsedata)
         df = pd.DataFrame(data)
@@ -57,7 +56,7 @@ def st_dict():
     global dict_state
     if dict_state is None:
         url = f"https://us-central1-taxfiling-aggregation.cloudfunctions.net/fed-tax-data-get?p_01=st"
-        response = requests.get(url)
+        response = requests.get(url, timeout=60)
         responsedata = response.json()
         data = pd.DataFrame(responsedata)
         state_dict = {}
